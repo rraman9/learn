@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<p>Register</p>
+<form>
+    <label for="firstName">First Name:</label>
+    <input name="firstName" id="firstName" type="text">
+    <label for="lastName">Last Name:</label>
+    <input name="lastName" id="lastName" type="text">
+    <p></p>
+    <label for="maleGender">Male:</label>
+    <input name="gender" id="maleGender" value="M" type="radio">
+    <label for="femaleGender">Female:</label>
+    <input name="gender" id="femaleGender" value="M" type="radio">
+    <p></p>
+    <label for="email">Email</label>
+    <input type="email" id="email">
+    <label for="password">Password</label>
+    <input type="password" id="password" pattern=".{5,10}" required>
+    <p></p>
+    Birthday:
+    <select name="month">
+        <option value="1">Jan</option>
+        <option value="2">Feb</option>
+        <option value="3">Mar</option>
+    </select>
+    <select name="day">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+    <select name="year">
+        <option value="1">2017</option>
+        <option value="2">2016</option>
+        <option value="3">2015</option>
+    </select>
+    <button name="Go">Go</button>
+</form>
+</body>
+</html>

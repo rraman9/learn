@@ -1,0 +1,9 @@
+body {
+    background: orange;
+}
+li {
+    border: 2px solid purple;
+}
+.special {
+    text-decoration: line-through;
+}

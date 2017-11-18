@@ -1,0 +1,8 @@
+h1 {
+    color: rgba(255,0,0, 0.4);
+    border: 5px solid purple
+}
+li {
+    background: #ffedc8;
+    color: rgb(255,0,255);
+}
