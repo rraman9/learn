@@ -1,6 +1,10 @@
 $(document).ready(function() {
-    $('body').css("background", "yellow");
-    $('img').fadeOut(3000, function() {
-        $(this).remove();
+    $('h1').click(function () {
+        alert("heading clikced");
+    })
+    $('button').click(function () {
+        $(this).css("background","yellow");
+    })    $('#dontclick').click(function () {
+        $(this).css("background", "red");
     })
 });
