@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HelloworldComponent } from './helloworld/helloworld.component';
 import { DataService} from "./data.service";
+import {FormsModule} from "@angular/forms";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import { DataService} from "./data.service";
     HelloworldComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

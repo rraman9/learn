@@ -6,6 +6,6 @@ export class DataService {
   constructor() { }
   cars = ['Ford', 'Chevorlet', 'Maruti'];
   mydata() {
-    return 'This is my data!!';
+    return 'This is my data 2!!';
   }
 }
