@@ -6,12 +6,12 @@ import {Route, Switch} from 'react-router';
 import {BrowserRouter} from 'react-router-dom';
 import reducers from './reducers';
 import {applyMiddleware, createStore} from 'redux';
-import promise from 'redux-promise';
 import App from "./App";
 import Resources from './components/resources';
 import requireAuth from './components/require_auth';
+import reduxThunk from 'redux-thunk';
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
         <BrowserRouter>

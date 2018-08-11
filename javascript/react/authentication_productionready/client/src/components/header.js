@@ -5,15 +5,15 @@ import {Link} from 'react-router-dom';
 class Header extends Component {
     renderLinks() {
         if (this.props.authenticated) {
-            return <li className="nav-item">
+            return <li className="nav-item" key="signout">
                 <Link className="nav-link" to="/signout">Sign Out</Link>
             </li>
         } else {
             return [
-                <li className="nav-item">
+                <li className="nav-item" key="signin">
                     <Link className="nav-link" to="/signin">Sign In</Link>
                 </li>,
-                <li className="nav-item">
+                <li className="nav-item" key="signup">
                     <Link className="nav-link" to="/signup">Sign Up</Link>
                 </li>
             ]
@@ -34,7 +34,6 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log('mapStateToProps - state is:', state);
     return {
         authenticated: state.auth.authenticated
     };

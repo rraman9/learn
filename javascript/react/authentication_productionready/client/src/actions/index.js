@@ -1,4 +1,4 @@
-import {AUTH_ERROR, AUTH_USER, CHANGE_AUTH, UNAUTH_USER} from "./types";
+import {AUTH_ERROR, AUTH_USER, CHANGE_AUTH, FETCH_MESSAGE, UNAUTH_USER} from "./types";
 import axios from 'axios';
 import history from "../history";
 
@@ -15,7 +15,7 @@ export function signInUser(email, password) {
                 // Save JWT token
                 localStorage.setItem('token', response.data.token);
                 // redirect to route /feature
-                history.push('/resources');
+                history.push('/feature');
             })
             .catch(() => {
                 // Show an error to user
@@ -25,6 +25,7 @@ export function signInUser(email, password) {
 }
 
 export function authError(error) {
+    console.log('error is:', error);
     return {
         type: AUTH_ERROR,
         payload: error
@@ -34,4 +35,32 @@ export function authError(error) {
 export function signoutUser() {
     localStorage.removeItem('token');
     return {type: UNAUTH_USER};
+}
+
+export function signupUser({email, password}) {
+    return function(dispatch) {
+        axios.post(`${ROOT_URL}/signup`, {email, password})
+            .then(response => {
+                console.log('response is:', response);
+                dispatch({type: AUTH_USER});
+                localStorage.setItem('token', response.data.token);
+                //history.push('/feature');
+                this.context.router.history.push('/feature');
+            }).catch(error => {
+                dispatch(authError(error.response.data));
+        })
+    }
+}
+
+export function fetchMessage() {
+    return function(dispatch) {
+        axios.get(ROOT_URL, {
+            headers: { authorization: localStorage.getItem('token')}
+        }).then(response => {
+            dispatch({
+                type: FETCH_MESSAGE,
+                payload: response.data.message
+            })
+        });
+    }
 }
