@@ -1,4 +1,6 @@
-package com.raja.learn.mocking;
+package com.raja.learn.mocking.business;
+
+import com.raja.learn.mocking.DataService;
 
 public class BusinessImpl {
 
