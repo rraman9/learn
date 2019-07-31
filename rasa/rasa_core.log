@@ -1,0 +1,7 @@
+2019-06-29 21:46:59,347 [ERROR]  Unable to start server
+Traceback (most recent call last):
+  File "C:\Users\rajraman\AppData\Local\Continuum\anaconda3\envs\mygreatenvironment\lib\site-packages\sanic\server.py", line 745, in serve
+    http_server = loop.run_until_complete(server_coroutine)
+  File "C:\Users\rajraman\AppData\Local\Continuum\anaconda3\envs\mygreatenvironment\lib\asyncio\base_events.py", line 482, in run_until_complete
+    raise RuntimeError('Event loop stopped before Future completed.')
+RuntimeError: Event loop stopped before Future completed.
