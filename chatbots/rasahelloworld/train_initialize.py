@@ -8,7 +8,7 @@ from rasa_core.policies.keras_policy import KerasPolicy
 from rasa_core.policies.memoization import MemoizationPolicy
 
 if __name__ == '__main__':
-    #utils.configure_colored_logging(loglevel="DEBUG")
+    #utils.configure_coloprred_logging(loglevel="DEBUG")
 
     training_data_file = './data/stories.md'
     model_path = './models/dialogue'
