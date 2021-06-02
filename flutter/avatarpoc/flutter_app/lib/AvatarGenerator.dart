@@ -1,3 +1,4 @@
+import 'package:avataar_generator/enums.dart';
 import 'package:avataar_generator/generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,8 +16,10 @@ class _AvatarGeneratorState extends State<AvatarGenerator> {
   }
   @override
   Widget build(BuildContext context) {
+    Options option = new Options();
+    option.facialHair = FacialHair.beardmagestic;
     return FutureBuilder(
-      future: displaySvg(getSvg(new Options()).replaceAll("path-", "path")),
+      future: displaySvg(getSvg(option).replaceAll("path-", "path")),
       builder: (context,snapshot){
         return Container(
           child: snapshot.data,
