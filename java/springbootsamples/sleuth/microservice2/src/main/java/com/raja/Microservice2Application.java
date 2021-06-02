@@ -1,3 +1,5 @@
+package com.raja;
+
 import brave.sampler.Sampler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +41,7 @@ class Microservice2Controller {
     @GetMapping(value = "/microservice2")
     public String method2() {
         LOG.info("Inside method2");
-        String baseUrl = "http://localhost:8082/microservice3";
+        String baseUrl = "http://localhost:8082/placement";
         String response = (String) restTemplate.exchange(baseUrl, HttpMethod.GET, null, String.class).getBody();
         LOG.info("The response received by method2 is " + response);
         return response;
