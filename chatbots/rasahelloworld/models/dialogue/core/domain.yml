@@ -1,0 +1,57 @@
+%YAML 1.1
+---
+actions:
+- get_todays_horoscope
+- subscribe_user
+- utter_ask_dob
+- utter_ask_horoscope_sign
+- utter_greet
+- utter_subscribe
+config:
+  store_entities_as_slots: true
+entities:
+- DD
+- MM
+- dob_intent
+- horoscope_sign
+- subscribe
+forms: []
+intents:
+- greeting:
+    ignore_entities: []
+    use_entities: true
+- get_horoscope:
+    ignore_entities: []
+    use_entities: true
+- subscription:
+    ignore_entities: []
+    use_entities: true
+- dob_intent:
+    ignore_entities: []
+    use_entities: true
+slots:
+  DD:
+    auto_fill: true
+    initial_value: null
+    type: rasa.core.slots.TextSlot
+  MM:
+    auto_fill: true
+    initial_value: null
+    type: rasa.core.slots.TextSlot
+  horoscope_sign:
+    auto_fill: true
+    initial_value: null
+    type: rasa.core.slots.TextSlot
+  subscribe:
+    auto_fill: true
+    initial_value: null
+    type: rasa.core.slots.BooleanSlot
+templates:
+  utter_ask_dob:
+  - text: What is your DOB in DD-MM format?
+  utter_ask_horoscope_sign:
+  - text: What is your horoscope sign?
+  utter_greet:
+  - text: Hello! What can I do for you?
+  utter_subscribe:
+  - text: Do you want to subscribe for daily updates?
