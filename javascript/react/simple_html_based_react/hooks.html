@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raja - Learning react hooks</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"></link>
+</head>
+<body>
+<div id="root">
+    <!--<div id="message">
+        Hello <span>React</span>
+    </div>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        function Counter() {
+
+            const [x, setX] = React.useState(0)
+            const [y, setY] = React.useState(0)
+
+            return (
+                <React.Fragment>
+                    <button onClick={() => setX(n=> n-1)}>-x</button>
+                    <button onClick={() => setY(n=> n-1)}>-y</button>
+                    {x}, {y}
+                    <button onClick={() => setX(n=> n+1)}>+x</button>
+                    <button onClick={() => setY(n=> n+1)}>+y</button>
+                </React.Fragment>
+            )
+        }
+
+        ReactDOM.render(<Counter/>
+            , document.getElementById('root'));
+    </script>
+
+</div>
+</body>
+</html>

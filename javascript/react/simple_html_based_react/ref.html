@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raja - Handling ref elements</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"></link>
+</head>
+<body>
+<div id="root">
+    <!--<div id="message">
+        Hello <span>React</span>
+    </div>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        class LoginForm extends React.Component {
+            usernameRef = React.createRef()
+            login = (event) => {
+                event.preventDefault()
+                this.usernameRef.current.focus()
+            }
+            render() {
+                return (
+                    <form action="/login" onSubmit={this.login}>
+                        Username: <input type="number" name="username" ref={this.usernameRef}/>
+                        Password: <input type="password" name="password"/>
+                        <input type="submit" value="Login" key="submit-button" />
+                    </form>)
+            }
+
+        }
+
+        function LoginForm2() {
+            const usernameRef = React.useRef()
+            const login = (event) => {
+                event.preventDefault()
+                usernameRef.current.focus()
+            }
+            return (
+                <form action="/login" onSubmit={login}>
+                    Username: <input type="number" name="username" ref={usernameRef}/>
+                    Password: <input type="password" name="password"/>
+                    <input type="submit" value="Login" key="submit-button" />
+                </form>)
+        }
+
+        ReactDOM.render(<LoginForm2/>, document.getElementById('root'));
+    </script>
+
+</div>
+</body>
+</html>

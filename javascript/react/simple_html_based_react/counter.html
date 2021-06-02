@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raja - Counter</title>
+</head>
+<body>
+<div id="root">
+    <!--<div id="message">
+        Hello <span>React</span>
+    </div>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        class Counter extends React.Component {// Superclass gets props and setup this.props = props
+            state = {
+                value: this.props.init
+            };
+            increment = () => {
+                this.setState({
+                    value: this.state.value + 1
+                });
+
+                /* Alternative - in this case even if you have multiple setState calls we'll be ok
+                this.setState((state) => {
+                return { value: state.value + 1};
+                });
+                 */
+            }
+            decrement = () => {
+                console.log('decrement');
+                // example of showing callbacks in setState, should be used when second call on setState
+                // depends on value of the first call on state
+                this.setState({
+                    value: this.state.value - 1
+                }, () => {
+                    this.setState({
+                        value: this.state.value - 1
+                    });
+                })
+            }
+            render() {
+                return (
+                    <React.Fragment>
+                        <button onClick={this.decrement}>-</button>
+                        {this.state.value}
+                        <button onClick={this.increment}>+</button>
+                    </React.Fragment>
+                );
+            }
+        }
+
+        ReactDOM.render(<Counter init={1}/>, document.getElementById('root'));
+    </script>
+
+</div>
+</body>
+</html>

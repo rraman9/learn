@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <title>Raja</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"></link>
+</head>
+<body>
+<div id="root">
+    <!--<div id="message">
+        Hello <span>React</span>
+    </div>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        class Invoice extends React.Component {
+            state = {
+                items: this.props.items
+            }
+
+            deleteItem = (item, idx) => {
+                console.log(this)
+                console.log('item='+item + ', idx=' + idx)
+                this.setState(state => {
+                    return {
+                        items: state.items.filter((i, index) => index != idx)
+                    }
+                })
+            }
+
+            render() {
+                const {customer, coupon} = this.props;
+                console.log('items are' + this.state.items)
+                const {items} = this.state;
+                return (
+                    <div className="container my-4">
+                        <div className="card p-3">
+                            <div className="card-title">
+                                <div>
+                                    Customer: {customer}
+                                </div>
+                            </div>
+                            <div className="card-body">
+                                <table className="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Total</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {items.map((item, idx) => (
+                                        <tr key={item.name}>
+                                            <td>{item.name}</td>
+                                            <td>{item.quantity}</td>
+                                            <td>{item.price}</td>
+                                            <td>{item.quantity * item.price}</td>
+                                            <td>
+                                                <button className="btn btn-danger btn-sm" onClick={() => this.deleteItem(item, idx)}>&times;</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                                {
+                                    coupon ? (
+                                        <p className="text-success">
+                                            Use coupon {coupon} to get a discount for your next purchase
+                                        </p>
+                                    ) : null
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                )
+            }
+        };
+
+
+        const invoiceProps = {
+            customer: 'John Doe',
+            coupon: 'NEW75',
+            items: [
+                {name: 'Soap', quantity: 10, price: 40},
+                {name: 'Book', quantity: 30, price: 200},
+                {name: 'Pen', quantity: 50, price: 30},
+                {name: 'Toothbrush', quantity: 10, price: 25},
+            ]
+        }
+        ReactDOM.render(<Invoice {...invoiceProps}/>, document.getElementById('root'));
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Raja - using effect hook</title>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"></link>
+</head>
+<body>
+<div id="root">
+  <!--<div id="message">
+      Hello <span>React</span>
+  </div>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+  <script type="text/babel">
+    // "Side effects" (for state and prop updates) are written in lifecycle methods in class components
+    // useEffect - gives componentDidMount/componentDidUpdate like functionality
+    function X({p}) {
+      const [x, setX] = React.useState(0)
+      // executes initially, or on a state or prop update
+      // second argument is the list of state or prop values on whose changes we run this method
+      // here this method will only get called when property p changes
+      // useEffect callback runs asynchronously AFTER the render happens, not immediately
+      React.useEffect(() => {
+        console.log('useeffect called')
+        return () => {
+          console.log('callback called')
+        };
+      }, [p]);
+
+      React.useEffect(() => {
+        console.log('useeffect called ONLY when no prop or state has changed')
+        return () => {
+          console.log('callback called')
+        };
+      }, []);
+
+      React.useEffect(() => {
+        console.log('useeffect called for ANY property or state change')
+        return () => {
+          console.log('runs before the next useEffect runs - we can use it for cleanup')
+        };
+      }, []);
+      return (
+              <div>
+                x = {x}
+                <button onClick={() => setX(x=>x+1)}>+x</button>
+              </div>
+      )
+    }
+    ReactDOM.render(<X p={1}/>, document.getElementById('root'))
+
+    setTimeout(() => {
+      ReactDOM.render(<X p={2}/>, document.getElementById('root'))
+    }, 10000)
+  </script>
+
+</div>
+</body>
+</html>

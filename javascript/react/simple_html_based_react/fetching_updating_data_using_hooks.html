@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <title>Fetching and updating data</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"></link>
+    <style>
+    </style>
+</head>
+<body>
+<div id="root">
+    <!--<div id="message">
+        Hello <span>React</span>
+    </div>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+            integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/babel">
+        const WorkshopList  = React.memo(function ({page}) {
+            const [state, setState] = React.useState({
+                workshops: [],
+                status: WorkshopList.FETCHING
+            })
+
+            const fetchWorkshopsForPage = () => {
+                setState({
+                    ...state,
+                    status: WorkshopList.FETCHING
+                })
+                axios.get(`http://workshops-server.herokuapp.com/workshops?_page=${page}&_limit=3`)
+                    .then(response => response.data)
+                    .then(workshops => {
+                        console.log('Fetched workshops:')
+                        console.log(workshops)
+                        setState({
+                            ...state,
+                            workshops, // same as workshops:workshops
+                            status: WorkshopList.FETCHED
+                        })
+                    }).catch(error => {
+                    setState({
+                        ...state,
+                        status: WorkshopList.ERROR_FETCHING,
+                        error
+                    })
+                })
+            }
+
+            // behaves like componentDidMount, AND componetDidUpdate (when page changes)
+            React.useEffect(fetchWorkshopsForPage, [page])
+
+            console.log('status=', state.status)
+            switch (state.status) {
+                case WorkshopList.FETCHING:
+                    return (
+                        <div className="spinner-border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                    )
+                case WorkshopList.FETCHED:
+                    console.log('Fetched - lets show workshops')
+                    console.log(state.workshops.length)
+                    return (
+                        <div>
+                            {state.workshops.length ? (
+                                <ul className="list-group">
+                                    {
+                                        state.workshops.map(workshop => <li className="list-group-item" key={workshop.id}>
+                                            {workshop.name}
+                                        </li>)
+                                    }
+                                </ul>
+                            ) : 'No workshops'}
+                        </div>
+                    )
+                case WorkshopList.ERROR_FETCHING:
+                    return (
+                        <div class="alert alert-danger" role="alert">
+                            <strong>error.message</strong>
+                        </div>
+                    )
+                default:
+                    return null
+            }
+
+        })
+
+        WorkshopList.FETCHING = 'FETCHING'
+        WorkshopList.FETCHED = 'FETCHED'
+        WorkshopList.ERROR_FETCHING = 'ERROR_FETCHING'
+
+        class App extends React.Component {
+            state = {
+                page: 1
+            }
+
+            nextPage = () => {
+                this.setState(state => {
+                    return {
+                        page: state.page + 1
+                    }
+                })
+            }
+
+            render() {
+                return (
+                    <div>
+                        <WorkshopList page={this.state.page}/>
+                        Page: {this.state.page}
+                        <button onClick={this.nextPage}>Next Page</button>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<App/>, document.getElementById('root'))
+    </script>
+</div>
+</body>
+</html>

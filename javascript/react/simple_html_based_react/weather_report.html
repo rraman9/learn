@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raja - Testing react</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body {
+
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <!--<div id="message">
+        Hello <span>React</span>
+    </div>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        function RainfallReport({rainfall, lastFiveDaysRainfall}) {
+            return (
+                <div className="rainfall">
+                    Today's rainfall is {toCentimeters(rainfall)}
+                    <br/>
+                    Last 5 days rainfall - {lastFiveDaysRainfall.map(rainfall => rainfall + 'mm').join(', ')}
+                </div>
+            );
+        }
+
+        function WeatherReport({
+                                   description,
+                                   city,
+                                   temp, ...rainfallDetails
+                               }) {
+            const temperatureEl = (
+                <div>Min = {temp.min}
+                    &nbsp;
+                    Max = {temp.max}</div>
+            );
+            return (
+                <div>
+                    <h1>{city}</h1>
+                    <hr/>
+                    <p>
+                        {description}
+                    </p>
+                    {temperatureEl}
+                    <RainfallReport {...rainfallDetails}></RainfallReport>
+                </div>
+            )
+
+        }
+
+        function toCentimeters(valueInMM) {
+            return valueInMM / 10;
+        }
+
+        const el = <WeatherReport description="Heavy rain and strong winds"
+                                  city="Bangalore"
+                                  rainfall={20}
+                                  lastFiveDaysRainfall={[5, 10, 15, 20, 25]}
+                                  temp={{min: 20, max: 30}}
+                                  converter={{toCentimeters}}
+        ></WeatherReport>
+        ReactDOM.render(
+            el, document.getElementById('root'));
+    </script>
+
+</div>
+</body>
+</html>

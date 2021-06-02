@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <title>Communicating state changes</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"></link>
+    <style>
+        .panel {
+            border: 1px solid crimson;
+        }
+
+        ,
+        .panel-heading, .panel-body {
+            padding: 0.5em 1em;
+        }
+
+        ,
+        .panel-heading {
+            background-color: crimson,
+            color: white
+        }
+
+    </style>
+</head>
+<body>
+<div id="root">
+    <!--<div id="message">
+        Hello <span>React</span>
+    </div>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        function PanelHeading({heading, toggle}) {
+            return (
+                <div className="panel-heading" onClick={toggle}>{heading}</div>
+            )
+        }
+
+        function PanelBody({children, isOpen}) {
+            return isOpen ? (
+                <div className="panel-body">{children}</div>
+            ) : null
+        }
+
+        class Panel extends React.Component {
+            state = {
+                isOpen: true
+            }
+
+            toggle= () => {
+                this.setState(state => {
+                    return {
+                    isOpen: !state.isOpen
+                }});
+            }
+
+            render() {
+                const {heading, children} = this.props
+                const {isOpen} = this.state
+                return (
+                    <div className="panel">
+                        <PanelHeading heading={heading} toggle={this.toggle}></PanelHeading>
+                        <PanelBody isOpen={isOpen}>
+                            {children}
+                        </PanelBody>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM
+            .render(
+                <Panel heading="What is React?">
+                    <p>IT is a UI library</p>
+                    <p>It was created by Facebook</p>
+                </Panel>,
+                document
+                    .getElementById(
+                        'root'
+                    ))
+        ;
+    </script>
+</div>
+</body>
+</html>

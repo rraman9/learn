@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Communicating state changes</title>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"></link>
+  <style>
+    .panel {
+      border: 1px solid crimson;
+    }
+
+    ,
+    .panel-heading, .panel-body {
+      padding: 0.5em 1em;
+    }
+
+    ,
+    .panel-heading {
+      background-color: crimson,
+      color: white
+    }
+
+  </style>
+</head>
+<body>
+<div id="root">
+  <!--<div id="message">
+      Hello <span>React</span>
+  </div>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+  <script type="text/babel">
+    // Mounting phase - component enters DOM
+    // update phase - props or state changes
+    // unmounting phase - cleanup action as component is cleaned up
+    class X extends React.Component {
+      state = {
+        a: 1,
+        b: 2
+      }
+
+      constructor(props) {
+        super(props);
+        console.log('constructor')
+      }
+
+      incA = () => {
+        this.setState(state => {
+          return {
+            a: state.a + 1,
+            b: state.b
+          }
+        })
+      }
+
+      incB = () => {
+        this.setState(state => {
+          return {
+            a: state.a,
+            b: state.b + 1
+          }
+        })
+      }
+
+      render() {
+        console.log('render called')
+        return (
+                <div>
+                  a={this.state.a} <button onClick={this.incA}>Inc A</button>
+                  <button onClick={this.incB}>Inc B</button>
+                  p={this.props.p}
+                </div>
+        )
+      }
+      componentDidMount() {
+        console.log('component did mount')
+      }
+
+      // for improving performance - if we just have to do some housekeeping and not change the UI
+      shouldComponentUpdate(nextProps, nextState, nextContext) {
+        console.log('shouldComponentUpdate')
+        if (nextState.a===this.state.a && nextProps.p==this.props.p) {
+          return false // No need to re-render since only a state attribute and p prop are used in render
+        } else {
+          return true
+        }
+      }
+
+      // ajax calls based on state updates
+      // can call setState but try not to change the same props that were changed else it'll get into a loop! put some conditional to avoid
+      componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log('componentDidUpdate')
+        console.log('old state:', prevState)
+        console.log('new state:', this.state)
+      }
+    };
+
+
+    ReactDOM.render(<X p={1} q={2}/>,document.getElementById('root'))
+    setTimeout(() => {
+      // react reuses X component and just calls componentUpdate on it instead of creating new X
+      ReactDOM.render(<X p={2} q={2}/>,document.getElementById('root'))
+    }, 5000)
+    setTimeout(() => {
+      ReactDOM.render(<div>That's all folks</div>,document.getElementById('root'))
+    }, 10000)
+  </script>
+</div>
+</body>
+</html>

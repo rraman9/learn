@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raja - Learning react hooks</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"></link>
+</head>
+<body>
+<div id="root">
+    <!--<div id="message">
+        Hello <span>React</span>
+    </div>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        function useCounter() {
+            // custom hook - function that calls react's built in hooks
+            const [value, setValue] = React.useState(0)
+            const decrement = () => { setValue(value => value - 1)}
+            const increment = () => { setValue(value => value + 1)}
+            return {
+                value,
+                decrement,
+                increment
+            }
+        }
+        function Counter() {
+
+            const {value, decrement, increment} = useCounter()
+
+            return (
+                <React.Fragment>
+                    <button onClick={decrement}>-</button>
+                    {value}
+                    <button onClick={increment}>+</button>
+                </React.Fragment>
+            )
+        }
+
+        ReactDOM.render(<Counter/>
+            , document.getElementById('root'));
+    </script>
+
+</div>
+</body>
+</html>

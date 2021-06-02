@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raja - Testing react</title>
+</head>
+<body>
+<div id="root">
+    <!--<div id="message">
+        Hello <span>React</span>
+    </div>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
+    <script>
+        const el = React.createElement('div',
+            {
+                // props argument
+                id: "message",
+                title: "Welcome to react"
+            },
+            'Hello',
+            React.createElement('span',
+                {
+                    id: 'Library'
+                },
+                'React'
+            ));
+        console.log(el);
+        ReactDOM.render(el, document.getElementById('root'));
+    </script>
+
+</div>
+</body>
+</html>
