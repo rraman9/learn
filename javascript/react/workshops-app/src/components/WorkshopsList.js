@@ -1,15 +1,18 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-const WorkshopsList  = React.memo(function () {
-    const [state, setState] = React.useState({
+
+const WorkshopsList = React.memo(function () {
+    const [state, setState] = useState({
         workshops: [],
         status: WorkshopsList.FETCHING
     })
 
     const fetchWorkshops = () => {
-        setState({
-            ...state,
-            status: WorkshopsList.FETCHING
+        setState(state => {
+            return {
+                ...state,
+                status: WorkshopsList.FETCHING
+            }
         })
         axios.get(`http://workshops-server.herokuapp.com/workshops`)
             .then(response => response.data)
@@ -22,15 +25,17 @@ const WorkshopsList  = React.memo(function () {
                     status: WorkshopsList.FETCHED
                 })
             }).catch(error => {
-            setState({
-                ...state,
-                status: WorkshopsList.ERROR_FETCHING,
-                error
+            setState(state => {
+                return {
+                    ...state,
+                    status: WorkshopsList.ERROR_FETCHING,
+                    error
+                }
             })
         })
     }
 
-    useEffect(fetchWorkshops)
+    useEffect(fetchWorkshops, [])
 
     console.log('status=', state.status)
     switch (state.status) {
