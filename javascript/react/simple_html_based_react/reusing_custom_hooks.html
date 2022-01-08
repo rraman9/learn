@@ -18,14 +18,19 @@
         function useCounter() {
             // custom hook - function that calls react's built in hooks
             const [value, setValue] = React.useState(0)
-            const decrement = () => { setValue(value => value - 1)}
-            const increment = () => { setValue(value => value + 1)}
+            const decrement = () => {
+                setValue(value => value - 1)
+            }
+            const increment = () => {
+                setValue(value => value + 1)
+            }
             return {
                 value,
                 decrement,
                 increment
             }
         }
+
         function Counter() {
 
             const {value, decrement, increment} = useCounter()
@@ -39,7 +44,21 @@
             )
         }
 
-        ReactDOM.render(<Counter/>
+        function FancyCounter() {
+            const {value, decrement, increment} = useCounter();
+            return (
+                <React.Fragment>
+                    <button className="btn btn-danger btn-sm" onClick={decrement}>-</button>
+                    {value}
+                    <button className="btn btn-danger btn-sm" onClick={increment}>+</button>
+                </React.Fragment>
+            );
+        }
+
+        ReactDOM.render(<React.Fragment>
+                <Counter/>
+                <FancyCounter/>
+            </React.Fragment>
             , document.getElementById('root'));
     </script>
 
